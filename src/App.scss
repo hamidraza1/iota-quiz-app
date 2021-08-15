@@ -5,3 +5,8 @@
 .title {
   margin: 0px 10px;
 }
+
+button:hover,
+button:focus {
+  text-decoration: none !important;
+}
