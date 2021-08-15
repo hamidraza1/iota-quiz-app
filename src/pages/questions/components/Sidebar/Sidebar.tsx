@@ -7,16 +7,17 @@ import {
 } from "@elastic/eui";
 import React, { useContext } from "react";
 import QuizContext from "../../../../context/quizContext";
+import { Question } from "../../../../types/types";
 import css from "./Sidebar.module.scss";
 
 export type ISidebarProps = {};
 
-const list = Array(10)
-  .fill(0)
-  .map((_, item) => item);
-
 const Sidebar: React.FC<ISidebarProps> = ({}) => {
-  const { selectQuestion, selectedQuestionId } = useContext(QuizContext);
+  const {
+    selectQuestion,
+    selectedQuestionId,
+    questionsList: list,
+  } = useContext(QuizContext);
   return (
     <EuiPageSideBar className={css.sidebar}>
       <EuiPanel>
@@ -25,13 +26,26 @@ const Sidebar: React.FC<ISidebarProps> = ({}) => {
           {list.map((item) => (
             <>
               <EuiListGroupItem
-                isActive={selectedQuestionId === item}
+                isActive={selectedQuestionId === item.id}
                 size="m"
                 onClick={() => {
-                  selectQuestion(item);
+                  selectQuestion(item.id);
                 }}
-                label={"Question " + (item + 1)}
+                label={"Question " + (item.id! + 1)}
+                key={item.id}
+                extraAction={
+                  item.user_answer !== null
+                    ? {
+                        color: "success",
+                        iconType: "checkInCircleFilled",
+                        iconSize: "s",
+                        "aria-label": "Favorite link1",
+                        alwaysShow: true,
+                      }
+                    : undefined
+                }
               />
+
               <div className={css.border}></div>
             </>
           ))}

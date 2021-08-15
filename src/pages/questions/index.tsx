@@ -13,8 +13,13 @@ import { Sidebar } from "./components/Sidebar/Sidebar";
 export type IQuestionsProps = {};
 
 const Questions: React.FC<IQuestionsProps> = ({}) => {
-  const { isLoading, fetchQuestions, selectQuestion, selectedQuestion } =
-    useContext(QuizContext);
+  const {
+    isLoading,
+    fetchQuestions,
+    selectQuestion,
+    selectedQuestion,
+    progress,
+  } = useContext(QuizContext);
   const question = selectedQuestion();
   useEffect(() => {
     fetchQuestions();
@@ -36,7 +41,7 @@ const Questions: React.FC<IQuestionsProps> = ({}) => {
     <EuiPage paddingSize="none" style={{ height: "100%", marginTop: "49px" }}>
       <Sidebar></Sidebar>
       <EuiPageBody>
-        <EuiProgress size="xs" color="accent" value={6} max={10} />
+        <EuiProgress size="xs" color="accent" value={progress()} max={10} />
         {content()}
       </EuiPageBody>
     </EuiPage>
