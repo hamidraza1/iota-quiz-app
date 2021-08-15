@@ -1,41 +1,44 @@
 import {
-  EuiHeader,
-  EuiListGroup,
-  EuiListGroupItem,
+  EuiFlexGroup,
+  EuiLoadingLogo,
   EuiPage,
   EuiPageBody,
-  EuiPageSideBar,
-  EuiSpacer,
+  EuiProgress,
 } from "@elastic/eui";
-import React from "react";
-import css from "./index.module.scss";
+import React, { useContext, useEffect } from "react";
+import QuizContext from "../../context/quizContext";
+import { QuestionCard } from "./components/QuestionCard/QuestionCard";
+import { Sidebar } from "./components/Sidebar/Sidebar";
 
 export type IQuestionsProps = {};
 
 const Questions: React.FC<IQuestionsProps> = ({}) => {
-  const list = Array(10)
-    .fill(0)
-    .map((_, item) => item + 1);
+  const { isLoading, fetchQuestions, selectQuestion, selectedQuestion } =
+    useContext(QuizContext);
+  const question = selectedQuestion();
+  useEffect(() => {
+    fetchQuestions();
+    selectQuestion(0);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const content = () => {
+    if (isLoading)
+      return (
+        <EuiFlexGroup justifyContent="center" alignItems="center">
+          <EuiLoadingLogo logo="nested" size="xl" />
+        </EuiFlexGroup>
+      );
+    if (question) return <QuestionCard data={question}></QuestionCard>;
+    return <div></div>;
+  };
   return (
     <EuiPage paddingSize="none" style={{ height: "100%", marginTop: "49px" }}>
-      <EuiPageSideBar className={css.sidebar}>
-        <EuiSpacer></EuiSpacer>
-        <EuiListGroup flush={false} bordered={false}>
-          {list.map((item) => (
-            <>
-              <EuiListGroupItem
-                size="m"
-                onClick={() => {
-                  console.log(item);
-                }}
-                label={"Question " + item}
-              />
-              <div className={css.border}></div>
-            </>
-          ))}
-        </EuiListGroup>
-      </EuiPageSideBar>
-      <EuiPageBody className="blue"></EuiPageBody>
+      <Sidebar></Sidebar>
+      <EuiPageBody>
+        <EuiProgress size="xs" color="accent" value={6} max={10} />
+        {content()}
+      </EuiPageBody>
     </EuiPage>
   );
 };

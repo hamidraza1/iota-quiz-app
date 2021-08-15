@@ -1,0 +1,15 @@
+.border {
+  width: 100%;
+  height: 0.5px;
+  margin-top: 6px;
+  background-color: #d3dae6;
+}
+.sidebar {
+  min-width: 170px;
+  justify-content: center;
+  align-items: stretch;
+  display: flex;
+  & > div {
+    border-top-right-radius: 0px !important;
+  }
+}

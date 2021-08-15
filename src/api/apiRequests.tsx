@@ -6,7 +6,7 @@ const GetQuestions = async (diffultyLevel = "hard") => {
 
   const getresult = await axios.get(questionsURl);
   const data = await getresult.data.results;
-  return await data;
+  return data;
 };
 
 export default GetQuestions;

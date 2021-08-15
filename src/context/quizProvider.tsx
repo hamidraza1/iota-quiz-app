@@ -1,13 +1,14 @@
 import { useState } from "react";
 import QuizContext from "./quizContext";
 import GetQuestions from "../api/apiRequests";
+import { Question } from "../types/types";
 
 const QuizProvider = (props: any) => {
   const [username, setUsername] = useState("");
-  const [questionsList, setquestionsList] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [questionsList, setquestionsList] = useState<Question[]>([]);
   const [answersList, setAnswersList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedQuestionId, setSelectedQuestionId] = useState(0);
 
   const newUserHandler = (param: any) => {
     setUsername(param);
@@ -15,8 +16,9 @@ const QuizProvider = (props: any) => {
 
   const fetchQuestionsHandler = async () => {
     setIsLoading(true);
-    GetQuestions("hard").then((res) => {
-      setquestionsList(res);
+    GetQuestions("hard").then((res: Question[]) => {
+      const withIds = res.map((item, index) => ({ ...item, id: index }));
+      setquestionsList(withIds);
       setIsLoading(false);
     });
   };
@@ -37,25 +39,26 @@ const QuizProvider = (props: any) => {
       });
     }
   };
-  const setCurrentQuestionIndexHandler = (index: any) => {
-    setCurrentQuestionIndex(index);
-  };
 
   const setIsLoadingHandler = (val: any) => {
     setIsLoading(val);
   };
 
+  const getSelectedQuestion = (): Question | null => {
+    return questionsList[selectedQuestionId] ?? null;
+  };
   const quizContext = {
     name: username,
     questionsList: questionsList,
     answersList: answersList,
-    currentQuestionIndex: currentQuestionIndex,
     isLoading: isLoading,
     newUser: newUserHandler,
     fetchQuestions: fetchQuestionsHandler,
     setAnswersList: setAnswersListHandler,
-    setCurrentQuestionIndex: setCurrentQuestionIndexHandler,
     setIsLoading: setIsLoadingHandler,
+    selectQuestion: setSelectedQuestionId,
+    selectedQuestionId: selectedQuestionId,
+    selectedQuestion: getSelectedQuestion,
   };
 
   return (
