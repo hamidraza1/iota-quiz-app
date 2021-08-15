@@ -1,7 +1,5 @@
-import { Fragment, useContext, useRef } from "react";
-import QuizContext from "../../context/quizContext";
-import Container from "../../components/layout/container";
-import LayoutBody from "../../components/layout/layoutBody";
+import { Fragment } from "react";
+
 import { useHistory } from "react-router-dom";
 import {
   EuiButton,
@@ -13,18 +11,8 @@ import {
 } from "@elastic/eui";
 
 const Welcome = () => {
+  const router = useHistory();
   return (
-    // <Container heading="Welcome to Trivia Challenge">
-    //   <EuiButton>send</EuiButton>
-    //   <LayoutBody>
-    //     You will be presented with 10 true of false questions
-    //   </LayoutBody>
-    //   <input ref={usernameRef} type="text"></input>
-    //   <div>
-    //     <button onClick={onTestBeginHandler}>Begin</button>
-    //   </div>
-    // </Container>
-
     <EuiPage paddingSize="none" style={{ height: "100%" }}>
       <EuiPageBody paddingSize="l">
         <EuiPageContent
@@ -33,7 +21,7 @@ const Welcome = () => {
           paddingSize="none"
         >
           <EuiEmptyPrompt
-            iconType="package"
+            iconType="nested"
             title={
               <EuiTitle size="l">
                 <h1>Welcome.</h1>
@@ -53,7 +41,14 @@ const Welcome = () => {
               </Fragment>
             }
             actions={
-              <EuiButton iconType="cheer" color="text" fill>
+              <EuiButton
+                iconType="cheer"
+                color="text"
+                fill
+                onClick={() => {
+                  router.push("/questions");
+                }}
+              >
                 Lets get started!
               </EuiButton>
             }

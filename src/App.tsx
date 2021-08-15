@@ -8,12 +8,29 @@ import {
 import "./App.scss";
 import QuizProvider from "./context/quizProvider";
 import Quiz from "./pages/quiz/quiz";
-import Welcome from "./pages/start/welcome";
+import Welcome from "./pages/welcome";
 import "@elastic/eui/dist/eui_theme_light.css";
+import { Questions } from "./pages/questions";
+import {
+  EuiHeader,
+  EuiHeaderSection,
+  EuiHeaderSectionItem,
+  EuiIcon,
+} from "@elastic/eui";
 
 function App() {
   return (
     <QuizProvider>
+      <EuiHeader position="fixed">
+        <EuiHeaderSection grow={false}>
+          <EuiHeaderSectionItem border="right">
+            <EuiIcon type="nested" className="logo" size="xl" />
+          </EuiHeaderSectionItem>
+          <EuiHeaderSectionItem>
+            <h1 className="title">IOTA QUIZ</h1>
+          </EuiHeaderSectionItem>
+        </EuiHeaderSection>
+      </EuiHeader>
       <Router basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route path="/" exact>
@@ -21,6 +38,7 @@ function App() {
           </Route>
           <Route path="/welcome" exact component={Welcome} />
           <Route path="/quiz" exact component={Quiz} />
+          <Route path="/questions" exact component={Questions} />
           {/*  <Route path='/timeline' component={TimeLine} /> */}
         </Switch>
       </Router>

@@ -60,7 +60,7 @@ const QuizProvider = (props: any) => {
 
   return (
     <QuizContext.Provider value={quizContext}>
-            {props.children}
+      {props.children}
     </QuizContext.Provider>
   );
 };
