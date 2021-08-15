@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
+import QuizProvider from "./context/quizProvider";
+import Container from "./components/layout/container";
+import Quiz from "./pages/quiz/quiz";
+import Welcome from "./pages/start/welcome";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QuizProvider>
+      <Router basename={process.env.PUBLIC_URL}>
+        <Switch>
+          <Route path="/" exact component={Container} />
+          <Route path="/Welcome" exact component={Welcome} />
+          <Route path="/quiz" exact component={Quiz} />
+          {/*  <Route path='/timeline' component={TimeLine} /> */}
+        </Switch>
+      </Router>
+    </QuizProvider>
   );
 }
 
