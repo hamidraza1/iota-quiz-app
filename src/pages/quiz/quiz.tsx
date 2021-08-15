@@ -15,7 +15,6 @@ const Quiz = () => {
   const answersList: any = [...user.answersList];
   const questionsList: any = [...user.questionsList];
   const loading = user.isLoading;
-  const history = useHistory();
   let heading: any;
 
   const entities: any = {
@@ -41,9 +40,6 @@ const Quiz = () => {
       //should be added && prop , otherwise  it will be keep
       user.setCurrentQuestionIndex(user.currentQuestionIndex + 1);
     }
-    /* if (answersList.length === maxQuestions) {
-      history.push("/");
-    } */
   };
 
   const backClickHandler = () => {
