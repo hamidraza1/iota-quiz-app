@@ -3,6 +3,7 @@ import QuizContext from "../../context/quizContext";
 import Container from "../../components/layout/container";
 import LayoutBody from "../../components/layout/layoutBody";
 import { useHistory } from "react-router-dom";
+import { EuiButton, EuiCallOut, EuiPanel } from "@elastic/eui";
 
 const Welcome = () => {
   const history = useHistory();
@@ -19,6 +20,7 @@ const Welcome = () => {
 
   return (
     <Container heading="Welcome to Trivia Challenge">
+      <EuiButton>send</EuiButton>
       <LayoutBody>
         You will be presented with 10 true of false questions
       </LayoutBody>

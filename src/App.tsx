@@ -5,7 +5,7 @@ import QuizProvider from "./context/quizProvider";
 import Container from "./components/layout/container";
 import Quiz from "./pages/quiz/quiz";
 import Welcome from "./pages/start/welcome";
-
+import "@elastic/eui/dist/eui_theme_light.css";
 function App() {
   return (
     <QuizProvider>
