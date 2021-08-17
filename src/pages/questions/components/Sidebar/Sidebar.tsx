@@ -1,18 +1,28 @@
 import {
+  EuiButton,
+  EuiListGroup,
+  EuiListGroupItem,
   EuiPageSideBar,
   EuiPanel,
   EuiSpacer,
-  EuiListGroup,
-  EuiListGroupItem,
 } from "@elastic/eui";
-import React, { useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import QuizContext from "../../../../context/quizContext";
-import { Question } from "../../../../types/types";
+import { ConfirmationModal } from "../ConfirmationModal/ConfirmationModal";
 import css from "./Sidebar.module.scss";
 
 export type ISidebarProps = {};
 
-const Sidebar: React.FC<ISidebarProps> = ({}) => {
+const Sidebar: React.FC<ISidebarProps> = () => {
+  const { progress, questionsList } = useContext(QuizContext);
+  const [showModal, setshowModal] = useState(false);
+  const closeModal = (): void => {
+    setshowModal(false);
+  };
+  const openConfirmationModal = (): void => {
+    setshowModal(true);
+  };
+
   const {
     selectQuestion,
     selectedQuestionId,
@@ -20,11 +30,11 @@ const Sidebar: React.FC<ISidebarProps> = ({}) => {
   } = useContext(QuizContext);
   return (
     <EuiPageSideBar className={css.sidebar}>
-      <EuiPanel>
+      <EuiPanel className={css.panel}>
         <EuiSpacer></EuiSpacer>
-        <EuiListGroup flush={false} bordered={false}>
+        <EuiListGroup flush={false} bordered={false} className={css.group}>
           {list.map((item) => (
-            <>
+            <Fragment key={item.id}>
               <EuiListGroupItem
                 isActive={selectedQuestionId === item.id}
                 size="m"
@@ -32,7 +42,6 @@ const Sidebar: React.FC<ISidebarProps> = ({}) => {
                   selectQuestion(item.id);
                 }}
                 label={"Question " + (item.id! + 1)}
-                key={item.id}
                 extraAction={
                   item.user_answer !== null
                     ? {
@@ -47,10 +56,20 @@ const Sidebar: React.FC<ISidebarProps> = ({}) => {
               />
 
               <div className={css.border}></div>
-            </>
+            </Fragment>
           ))}
         </EuiListGroup>
+        <EuiButton
+          className={css["submit-btn"]}
+          color="accent"
+          fill
+          onClick={openConfirmationModal}
+          disabled={progress() >= questionsList.length ? false : true}
+        >
+          Submit
+        </EuiButton>
       </EuiPanel>
+      {showModal ? <ConfirmationModal onModalClose={closeModal} /> : null}
     </EuiPageSideBar>
   );
 };

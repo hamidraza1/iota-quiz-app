@@ -12,7 +12,7 @@ import { Sidebar } from "./components/Sidebar/Sidebar";
 
 export type IQuestionsProps = {};
 
-const Questions: React.FC<IQuestionsProps> = ({}) => {
+const Questions: React.FC<IQuestionsProps> = () => {
   const {
     isLoading,
     fetchQuestions,
@@ -38,7 +38,10 @@ const Questions: React.FC<IQuestionsProps> = ({}) => {
     return <div></div>;
   };
   return (
-    <EuiPage paddingSize="none" style={{ height: "100%", marginTop: "49px" }}>
+    <EuiPage
+      paddingSize="none"
+      style={{ height: "calc(100% - 49px)", marginTop: "49px" }}
+    >
       <Sidebar></Sidebar>
       <EuiPageBody>
         <EuiProgress size="xs" color="accent" value={progress()} max={10} />

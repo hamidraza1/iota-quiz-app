@@ -15,11 +15,12 @@ export type IQuestionCardProps = {
 };
 
 const QuestionCard: React.FC<IQuestionCardProps> = ({ data }) => {
-  const { selectQuestion, updateQuestion } = useContext(QuizContext);
+  const { selectQuestion, updateQuestion, questionsList } =
+    useContext(QuizContext);
   const btnHandler = (value: boolean) => {
     if (typeof data.id === "undefined") return;
     updateQuestion(data.id, { user_answer: value });
-    if (data.id < 9) {
+    if (data.id < questionsList.length - 1) {
       selectQuestion(data.id + 1);
     }
   };

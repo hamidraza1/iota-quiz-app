@@ -1,7 +1,7 @@
 import { useState } from "react";
 import QuizContext from "./quizContext";
 import GetQuestions from "../api/apiRequests";
-import { Answer, Question } from "../types/types";
+import { Question } from "../types/types";
 
 const QuizProvider = (props: any) => {
   const [questionsList, setquestionsList] = useState<Question[]>([]);
@@ -9,6 +9,7 @@ const QuizProvider = (props: any) => {
   const [selectedQuestionId, setSelectedQuestionId] = useState(0);
 
   const fetchQuestionsHandler = async () => {
+    setquestionsList([]);
     setIsLoading(true);
     GetQuestions("hard").then((res: Question[]) => {
       const withIds = res.map((item, index) => ({
@@ -16,8 +17,6 @@ const QuizProvider = (props: any) => {
         id: index,
         user_answer: null,
       }));
-      console.log(withIds);
-
       setquestionsList(withIds);
       setIsLoading(false);
     });

@@ -9,7 +9,7 @@ import { useHistory, withRouter } from "react-router-dom";
 
 export type IHeaderProps = {};
 
-const Header: React.FC<IHeaderProps> = ({}) => {
+const Header: React.FC<IHeaderProps> = () => {
   const router = useHistory();
   return (
     <EuiHeader position="fixed">

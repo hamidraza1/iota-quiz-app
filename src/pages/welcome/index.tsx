@@ -1,3 +1,4 @@
+import React from "react";
 import { Fragment } from "react";
 
 import { useHistory } from "react-router-dom";
@@ -10,7 +11,9 @@ import {
   EuiTitle,
 } from "@elastic/eui";
 
-const Welcome = () => {
+export type IindexProps = {};
+
+const Welcome: React.FC<IindexProps> = () => {
   const router = useHistory();
   return (
     <EuiPage paddingSize="none" style={{ height: "100%" }}>
@@ -24,7 +27,7 @@ const Welcome = () => {
             iconType="nested"
             title={
               <EuiTitle size="l">
-                <h1>Welcome.</h1>
+                <h1>Welcome</h1>
               </EuiTitle>
             }
             body={
@@ -34,7 +37,7 @@ const Welcome = () => {
                   questions to test your general knowledge.
                 </p>
                 <p>
-                  Each question will have a limited time and you can move back
+                  Each question will have unlimited time and you can move back
                   and forth between questions.
                 </p>
                 <p>Good luck !! &#128522; &#128522;</p>
@@ -59,4 +62,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export { Welcome };

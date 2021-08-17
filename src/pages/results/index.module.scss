@@ -1,0 +1,16 @@
+.question-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.pageBody {
+  max-width: 90%;
+}
+.prompt {
+  max-width: 100%;
+}
+.question {
+  font-size: 16px;
+  margin-left: 8px;
+}
